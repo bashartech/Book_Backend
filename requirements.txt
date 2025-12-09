@@ -4,8 +4,6 @@ qdrant-client
 sentence-transformers==2.2.2
 python-frontmatter
 tiktoken
-fastapi-limiter[redis]
-redis
 openai-agents
 trafilatura
 fastapi
