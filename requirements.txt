@@ -8,3 +8,6 @@ openai-agents
 trafilatura
 fastapi
 uvicorn
+torch==2.9.1+cpu
+torchvision==0.18.1+cpu
+transformers==4.42.2
