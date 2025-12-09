@@ -1,7 +1,7 @@
 python-dotenv
 qdrant-client
 # sentence-transformers
-torch==2.3.0+cpu --extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.3.0
 sentence-transformers==2.2.2
 python-frontmatter
 tiktoken
