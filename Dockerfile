@@ -1,20 +1,25 @@
-# Use official Python image
+# Use official Python base image
 FROM python:3.11-slim
 
-# Set working directory
-WORKDIR /app
+# Set a working directory inside the container
+WORKDIR /uvproject
 
-# Copy requirements
-COPY requirements.txt .
+# Create a non-root user for security
+RUN useradd -m uvuser
+USER uvuser
 
-# Install dependencies without caching
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy only necessary files first to leverage Docker cache
+COPY --chown=uvuser:uvuser requirements.txt .
 
-# Copy your app code
-COPY . .
+# Install Python dependencies without cache to save space
+RUN python -m pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
-# Expose the port your app will run on
+# Copy the rest of your project files
+COPY --chown=uvuser:uvuser main.py .
+
+# Expose the port your FastAPI app will run on
 EXPOSE 8080
 
-# Command to run your app
+# Command to run the FastAPI app
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
